@@ -12,7 +12,7 @@ public class koneksi {
                 String password = new String();
                 url = "jdbc:mysql://localhost/rm-padang";
                 user = "root";
-                password = "";
+                password = "root";
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                 koneksi = DriverManager.getConnection(url, user, password);
             } catch (SQLException e) {
