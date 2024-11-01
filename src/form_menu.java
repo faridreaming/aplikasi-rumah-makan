@@ -203,7 +203,7 @@ public class form_menu extends javax.swing.JFrame {
         String jenisMenu = cbx_jenis_menu.getSelectedItem().toString();
         String stokMenu = txt_stok_menu.getText();
 
-        String sql = "INSERT INTO `menu`(`nama_menu`, `harga_menu`, `jenis_menu`, `Stok`) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO `menu`(`nama_menu`, `harga_menu`, `jenis_menu`, `stok`) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rm-padang", "root", "");
              PreparedStatement pst = conn.prepareStatement(sql)) {
