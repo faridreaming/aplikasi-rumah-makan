@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -113,7 +116,17 @@ public class form_login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String username = jTextField1.getText();
+        String password = new String(jTextField2.getText());
+        
+        //validasi sederhana
+        if (username.equals("root") && password.equals("")) {
+            JOptionPane.showMessageDialog(this, "Login Berhasil!");
+            this.dispose(); //menutup form login
+            new dashboard().setVisible(true); // membuka form dashboard
+        } else {
+            JOptionPane.showMessageDialog(this, "Username atau Password Salah !");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -146,7 +159,7 @@ public class form_login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new form_registrasi().setVisible(true);
+                new form_login().setVisible(true);
             }
         });
     }
