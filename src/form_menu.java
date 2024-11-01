@@ -13,6 +13,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 public class form_menu extends javax.swing.JFrame {
 
@@ -21,6 +24,7 @@ public class form_menu extends javax.swing.JFrame {
      */
     public form_menu() {
         initComponents();
+        loadDataToTable();
     }
 
     /**
@@ -159,6 +163,7 @@ public class form_menu extends javax.swing.JFrame {
     private void btn_tambah_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah_menuActionPerformed
         // TODO add your handling code here:
         tambahMenu();
+        loadDataToTable();
     }//GEN-LAST:event_btn_tambah_menuActionPerformed
 
     /**
@@ -221,6 +226,32 @@ public class form_menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal menambahkan data: " + e.getMessage());
         }
     }
+    
+        private void loadDataToTable() {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            String sql = "SELECT * FROM `menu`";
+
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rm-padang", "root", "");
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+                while (rs.next()) {
+                    int idMenu = rs.getInt("id_menu");
+                    String namaMenu = rs.getString("nama_menu");
+                    String hargaMenu = rs.getString("harga_menu");
+                    String jenisMenu = rs.getString("jenis_menu");
+                    int stok = rs.getInt("stok");
+
+                    model.addRow(new Object[]{idMenu, namaMenu, hargaMenu, jenisMenu, stok});
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+            }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_edit_menu;
