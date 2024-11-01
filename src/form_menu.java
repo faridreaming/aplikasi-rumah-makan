@@ -205,7 +205,7 @@ public class form_menu extends javax.swing.JFrame {
 
         String sql = "INSERT INTO `menu`(`nama_menu`, `harga_menu`, `jenis_menu`, `Stok`) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "username", "password");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rm-padang", "root", "");
              PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setString(1, namaMenu);
