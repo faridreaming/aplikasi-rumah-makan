@@ -1,15 +1,10 @@
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author farid
- */
 public class form_login extends javax.swing.JFrame {
 
     /**
@@ -73,7 +68,7 @@ public class form_login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                     .addComponent(jTextField1)
                     .addComponent(jTextField2)
                     .addGroup(layout.createSequentialGroup()
@@ -118,14 +113,32 @@ public class form_login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String username = jTextField1.getText();
         String password = new String(jTextField2.getText());
-        
-        //validasi sederhana
-        if (username.equals("root") && password.equals("")) {
-            JOptionPane.showMessageDialog(this, "Login Berhasil!");
-            this.dispose(); //menutup form login
-            new dashboard().setVisible(true); // membuka form dashboard
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username dan Password harus diisi!");
         } else {
-            JOptionPane.showMessageDialog(this, "Username atau Password Salah !");
+            try {
+                // Koneksi ke database
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rm-padang", "root", "");
+                String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, username);
+                stmt.setString(2, password);
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Login Berhasil!");
+                    this.dispose(); // menutup form login
+                    new dashboard().setVisible(true); // membuka form dashboard
+                } else {
+                    JOptionPane.showMessageDialog(this, "Username atau Password Salah!");
+                }
+
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Gagal terhubung ke database!");
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
