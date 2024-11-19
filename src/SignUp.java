@@ -23,13 +23,13 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
         setScaledImage();
-        jLabel2.addComponentListener(new java.awt.event.ComponentAdapter() {
+        jLabel9.addComponentListener(new java.awt.event.ComponentAdapter() {
     @Override
     public void componentResized(java.awt.event.ComponentEvent evt) {
         setScaledImage();
     }
 });
-    jLabel2.addComponentListener(new java.awt.event.ComponentAdapter() {
+    jLabel9.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 scaleImageProportionally();
@@ -47,8 +47,8 @@ public class SignUp extends javax.swing.JFrame {
         int originalHeight = originalImage.getHeight();
 
         // Ukuran JLabel (dari tab Design)
-        int labelWidth = jLabel2.getWidth();
-        int labelHeight = jLabel2.getHeight();
+        int labelWidth = jLabel9.getWidth();
+        int labelHeight = jLabel9.getHeight();
 
         // Hitung rasio scaling
         double widthRatio = (double) labelWidth / originalWidth;
@@ -63,7 +63,7 @@ public class SignUp extends javax.swing.JFrame {
         Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 
         // Pasang gambar ke JLabel
-        jLabel2.setIcon(new ImageIcon(scaledImage));
+        jLabel9.setIcon(new ImageIcon(scaledImage));
     } catch (IOException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Gagal memuat gambar!");
@@ -77,10 +77,10 @@ public class SignUp extends javax.swing.JFrame {
         BufferedImage img = ImageIO.read(getClass().getResource("/Icon/logo.png"));
         
         // Ubah ukuran gambar sesuai dengan JLabel
-        Image scaledImage = img.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+        Image scaledImage = img.getScaledInstance(jLabel9.getWidth(), jLabel9.getHeight(), Image.SCALE_SMOOTH);
         
         // Set gambar ke JLabel
-        jLabel2.setIcon(new ImageIcon(scaledImage));
+        jLabel9.setIcon(new ImageIcon(scaledImage));
     } catch (IOException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Gambar tidak dapat dimuat!");
@@ -122,8 +122,6 @@ public class SignUp extends javax.swing.JFrame {
         jLabel3.setText("copyright © BUNGA ACC All rights reserved");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
-        jLabel9.setMaximumSize(new java.awt.Dimension(240, 118));
-        jLabel9.setMinimumSize(new java.awt.Dimension(240, 118));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -138,7 +136,7 @@ public class SignUp extends javax.swing.JFrame {
                         .addGap(74, 74, 74)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel9))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -158,7 +156,7 @@ public class SignUp extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel4.setBackground(new java.awt.Color(102, 0, 0));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setText("SIGN UP");
 
@@ -200,7 +198,7 @@ public class SignUp extends javax.swing.JFrame {
 
         jLabel8.setText("I've an account");
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
+        jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Sign Up");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
