@@ -201,7 +201,7 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String username = jTextField1.getText();
-        String password = new String(jPasswordField1.getText());
+        String password = new String(jPasswordField1.getPassword());
 
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username dan Password harus diisi!");
@@ -218,7 +218,7 @@ public class Login extends javax.swing.JFrame {
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Login Berhasil!");
                     this.dispose(); // menutup form login
-                    new dashboard().setVisible(true); // membuka form dashboard
+                    new Dashboard().setVisible(true); // membuka form dashboard
                 } else {
                     JOptionPane.showMessageDialog(this, "Username atau Password Salah!");
                 }
