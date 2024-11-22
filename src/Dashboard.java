@@ -1,4 +1,6 @@
-
+import javax.swing.*;
+import java.awt.*;
+import java.sql.*;
 import java.awt.Color;
 
 
@@ -12,7 +14,7 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
-        
+        loadTotalStok();
         // center the form
         this.setLocationRelativeTo(null);
     }
@@ -38,7 +40,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblTotalStok = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -161,7 +163,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("LOGIN");
+        jLabel5.setText("LOGOUT");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.setOpaque(true);
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -230,9 +232,15 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("00957");
+        lblTotalStok.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
+        lblTotalStok.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalStok.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalStok.setText("0");
+        lblTotalStok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblTotalStokMouseEntered(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,7 +256,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTotalStok, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -260,7 +268,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTotalStok, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addGap(0, 49, Short.MAX_VALUE))
@@ -663,6 +671,33 @@ public class Dashboard extends javax.swing.JFrame {
         new form_menu().setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void lblTotalStokMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTotalStokMouseEntered
+        loadTotalStok();
+    }//GEN-LAST:event_lblTotalStokMouseEntered
+    
+    private void loadTotalStok() {
+        String url = "jdbc:mysql://localhost:3306/rm-padang";
+        String user = "root";
+        String password = "";
+
+        String query = "SELECT SUM(stok) AS total_stok FROM menu";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                int totalStok = rs.getInt("total_stok");
+                lblTotalStok.setText(String.format("%05d", totalStok));
+            } else {
+                lblTotalStok.setText("00000");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            lblTotalStok.setText("Error");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -699,7 +734,6 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -735,5 +769,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lblTotalStok;
     // End of variables declaration//GEN-END:variables
 }
