@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-import java.awt.Color;
+import java.awt.Color;import java.sql.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -9,15 +11,31 @@ import java.awt.Color;
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    private static Dashboard instance;
+
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
         loadTotalStok();
+        startAutoSync();
         // center the form
         this.setLocationRelativeTo(null);
     }
+    public static Dashboard getInstance() {
+        if (instance == null) {
+            instance = new Dashboard();
+        }
+        return instance;
+    }
+    
+    @Override
+    public void dispose() {
+        super.dispose();
+        instance = null; // Set instance ke null ketika ditutup
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -302,7 +320,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("16,421");
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("0");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -314,16 +333,16 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel12)))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -667,7 +686,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        this.dispose();
+        
         new form_menu().setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 
@@ -697,6 +716,40 @@ public class Dashboard extends javax.swing.JFrame {
             e.printStackTrace();
             lblTotalStok.setText("Error");
         }
+    }
+    
+    private void totalPembelian() {
+        String url = "jdbc:mysql://localhost:3306/rm-padang";
+        String user = "root";
+        String password = "";
+
+        String query = "SELECT SUM(stok) AS total_stok FROM menu";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                int totalStok = rs.getInt("total_stok");
+                lblTotalStok.setText(String.format("%05d", totalStok));
+            } else {
+                lblTotalStok.setText("00000");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            lblTotalStok.setText("Error");
+        }
+    }
+    
+    private void startAutoSync() {
+        Timer timer = new Timer(true); // Timer berjalan di background
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                loadTotalStok();
+            }
+        }, 0, 5000); // Jalankan setiap 5 detik
     }
     /**
      * @param args the command line arguments
