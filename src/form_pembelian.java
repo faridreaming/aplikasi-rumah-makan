@@ -1,5 +1,6 @@
 
 import com.sun.jdi.connect.spi.Connection;
+import java.awt.Color;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import javax.swing.border.LineBorder;
 
 public class form_pembelian extends javax.swing.JFrame {
 
@@ -51,6 +53,7 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -150,6 +153,21 @@ public class form_pembelian extends javax.swing.JFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo-white (1).png"))); // NOI18N
 
+        lblLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/enter.png"))); // NOI18N
+        lblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLoginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLoginMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,13 +175,17 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel20)
+                    .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -947,7 +969,7 @@ public class form_pembelian extends javax.swing.JFrame {
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -993,9 +1015,19 @@ public class form_pembelian extends javax.swing.JFrame {
 
         btnReset.setText("RESET");
         btnReset.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("EXIT");
         btnExit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1334,6 +1366,49 @@ int total = harga_menu * jumlah;
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat pembayaran: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBayarActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        // Hapus semua baris dari tabel UI
+    DefaultTableModel model = (DefaultTableModel) tabelPesanan.getModel();
+    model.setRowCount(0); // Menghapus semua baris di tabel
+
+    // Kosongkan daftar pesanan
+    pesananList.clear(); // Pastikan pesananList adalah List yang telah dideklarasikan
+
+    // Reset total keseluruhan
+    totalSemua = 0;
+    lblTotal.setText("Rp. " + totalSemua); // Update label total
+    JOptionPane.showMessageDialog(this, "Semua data telah direset!");
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+         int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
+        this.dispose(); // Menutup halaman saat ini
+    }
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void lblLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseEntered
+        // TODO add your handling code here:
+        lblLogin.setBackground(new Color(58, 83, 155));
+        lblLogin.setBorder(new LineBorder(new Color(0, 0, 0), 1)); // Warna hitam, ketebalan 1
+    }//GEN-LAST:event_lblLoginMouseEntered
+
+    private void lblLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseExited
+        // TODO add your handling code here:
+        lblLogin.setBorder(new LineBorder(new Color(0, 0, 0), 0)); //Warna Tidak Hytam, ketebalan 0
+    }//GEN-LAST:event_lblLoginMouseExited
+
+    private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
+ int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda ingin kembali ke halaman login?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
+        this.dispose(); // Menutup halaman form_pembelian
+    Login loginPage = new Login(); // Membuat instance halaman login
+    loginPage.setVisible(true); // Menampilkan halaman login
+    }
+    }//GEN-LAST:event_lblLoginMouseClicked
 private void loadDataToTable() {
             DefaultTableModel model = (DefaultTableModel) tabelPesanan.getModel();
             model.setRowCount(0);
@@ -1482,6 +1557,7 @@ private void loadDataToTable() {
     private javax.swing.JLabel lblHargaNilaAsamManis;
     private javax.swing.JLabel lblHargaNilaGoreng;
     private javax.swing.JLabel lblHargaRendangDaging;
+    private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel leleGorengSambal;
     private javax.swing.JLabel mieGoreng;
