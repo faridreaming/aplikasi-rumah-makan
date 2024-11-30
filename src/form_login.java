@@ -129,7 +129,7 @@ public class form_login extends javax.swing.JFrame {
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Login Berhasil!");
                     this.dispose(); // menutup form login
-                    new dashboard().setVisible(true); // membuka form dashboard
+                    new Dashboard().setVisible(true); // membuka form dashboard
                 } else {
                     JOptionPane.showMessageDialog(this, "Username atau Password Salah!");
                 }

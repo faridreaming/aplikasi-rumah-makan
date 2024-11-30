@@ -1,13 +1,43 @@
 
 import com.sun.jdi.connect.spi.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class form_pembelian extends javax.swing.JFrame {
 
-    /**
+    List<Pesanan> pesananList = new ArrayList<>();
+    public form_pembelian() {
+        this.pesananList = new ArrayList<>();
+        initComponents();
+        String[] kolom = {"Nama Menu", "Harga", "Jumlah", "Total"};
+        DefaultTableModel model = new DefaultTableModel(kolom, 0);
+        tabelPesanan.setModel(model);
+        
+
+    }
+    
+/**
      * Creates new form form_pembelian
      */
-    public form_pembelian() {
-        initComponents();
+        public static class Pesanan {
+        String namaMenu;
+        int hargaMenu;
+        int jumlah;
+        int total;
+
+        Pesanan(String namaMenu, int hargaMenu, int jumlah, int total) {
+            this.namaMenu = namaMenu;
+            this.hargaMenu = hargaMenu;
+            this.jumlah = jumlah;
+            this.total = total;
+        }
     }
 
     /**
@@ -25,9 +55,9 @@ public class form_pembelian extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
+        mieGoreng = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
+        lblHargaMieGoreng = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
         jmlhMieGoreng = new javax.swing.JSpinner();
         btnMiegoreng = new javax.swing.JButton();
@@ -41,70 +71,72 @@ public class form_pembelian extends javax.swing.JFrame {
         btnNasgor = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        ayamBakar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblHargaAyamBakar = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jmlhAyambakar = new javax.swing.JSpinner();
         btnAyamBakar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        rendangDaging = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblHargaRendangDaging = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jmlhRendang = new javax.swing.JSpinner();
         btnRendang = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        ayamGoreng = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        lblHargaAyamGoreng = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jmlhAyamGoreng = new javax.swing.JSpinner();
         btnAyamGoreng = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        nilaGoreng = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        lblHargaNilaGoreng = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jmlhNilaGoreng = new javax.swing.JSpinner();
         btnNilgor = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        gurameBakar = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        lblHargaGurameBakar = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jmlhGurameBakar = new javax.swing.JSpinner();
         btnGurameBakar = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        nilaAsamManis = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        lblHargaNilaAsamManis = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jmlhNilaAsamManis = new javax.swing.JSpinner();
         btnNilaAsamManis = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
+        ayamRendang = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
+        lblHargaAyamRendang = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jmlhRendangAyam = new javax.swing.JSpinner();
         btnRendangAyam = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
+        leleGorengSambal = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
+        lblHargaLeleGorengSambal = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jmlhLeleGorengSambal = new javax.swing.JSpinner();
         btnLeleGorengSambal = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelPesanan = new javax.swing.JTable();
         lbl1 = new javax.swing.JLabel();
         btnBayar = new javax.swing.JButton();
         lblTotal = new javax.swing.JLabel();
@@ -125,7 +157,7 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1036, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,17 +187,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/mie goreng (1).jpg"))); // NOI18N
 
-        jLabel48.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel48.setText("Mie Goreng");
-        jLabel48.setToolTipText("");
-        jLabel48.setPreferredSize(new java.awt.Dimension(68, 20));
+        mieGoreng.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        mieGoreng.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mieGoreng.setText("Mie Goreng");
+        mieGoreng.setToolTipText("");
+        mieGoreng.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel49.setText("Harga :");
 
-        jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel50.setText("Rp. 11.000.00,-");
+        lblHargaMieGoreng.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaMieGoreng.setText("Rp. 11.000.00,-");
 
         jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel51.setText("Order :");
@@ -190,13 +222,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel49))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaMieGoreng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jmlhMieGoreng, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(mieGoreng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnMiegoreng, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -205,11 +237,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mieGoreng, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel49)
-                    .addComponent(jLabel50))
+                    .addComponent(lblHargaMieGoreng))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel51)
@@ -291,17 +323,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/ayam bkar (1).jpg"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Ayam Bakar");
-        jLabel2.setToolTipText("");
-        jLabel2.setPreferredSize(new java.awt.Dimension(68, 20));
+        ayamBakar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ayamBakar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ayamBakar.setText("Ayam Bakar");
+        ayamBakar.setToolTipText("");
+        ayamBakar.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Harga :");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Rp. 7.000.00,-");
+        lblHargaAyamBakar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaAyamBakar.setText("Rp. 7.000.00,-");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Order :");
@@ -326,13 +358,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaAyamBakar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jmlhAyambakar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ayamBakar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnAyamBakar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -341,11 +373,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ayamBakar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(lblHargaAyamBakar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -359,17 +391,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/rendang daging (1).jpg"))); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Rendang Daging");
-        jLabel7.setToolTipText("");
-        jLabel7.setPreferredSize(new java.awt.Dimension(68, 20));
+        rendangDaging.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rendangDaging.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rendangDaging.setText("Rendang Daging");
+        rendangDaging.setToolTipText("");
+        rendangDaging.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Harga :");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setText("Rp. 10.000.00,-");
+        lblHargaRendangDaging.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaRendangDaging.setText("Rp. 10.000.00,-");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Order :");
@@ -394,13 +426,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaRendangDaging, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jmlhRendang, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(rendangDaging, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnRendang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -409,11 +441,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rendangDaging, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(lblHargaRendangDaging))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -427,17 +459,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/ayam goreng (1).jpg"))); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Ayam Goreng");
-        jLabel12.setToolTipText("");
-        jLabel12.setPreferredSize(new java.awt.Dimension(68, 20));
+        ayamGoreng.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ayamGoreng.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ayamGoreng.setText("Ayam Goreng");
+        ayamGoreng.setToolTipText("");
+        ayamGoreng.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Harga :");
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel14.setText("Rp. 7.000.00,-");
+        lblHargaAyamGoreng.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaAyamGoreng.setText("Rp. 7.000.00,-");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("Order :");
@@ -462,13 +494,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaAyamGoreng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jmlhAyamGoreng, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ayamGoreng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnAyamGoreng, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -477,11 +509,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ayamGoreng, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                    .addComponent(lblHargaAyamGoreng))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -495,17 +527,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/nila goreng (1).jpg"))); // NOI18N
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Nila Goreng");
-        jLabel17.setToolTipText("");
-        jLabel17.setPreferredSize(new java.awt.Dimension(68, 20));
+        nilaGoreng.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nilaGoreng.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nilaGoreng.setText("Nila Goreng");
+        nilaGoreng.setToolTipText("");
+        nilaGoreng.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel18.setText("Harga :");
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel19.setText("Rp. 7.000.00,-");
+        lblHargaNilaGoreng.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaNilaGoreng.setText("Rp. 7.000.00,-");
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel21.setText("Order :");
@@ -530,13 +562,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel18))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaNilaGoreng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jmlhNilaGoreng, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(nilaGoreng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnNilgor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -545,11 +577,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nilaGoreng, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jLabel19))
+                    .addComponent(lblHargaNilaGoreng))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
@@ -563,17 +595,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/gurame bakar (1).jpg"))); // NOI18N
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Gurame Bakar");
-        jLabel23.setToolTipText("");
-        jLabel23.setPreferredSize(new java.awt.Dimension(68, 20));
+        gurameBakar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        gurameBakar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gurameBakar.setText("Gurame Bakar");
+        gurameBakar.setToolTipText("");
+        gurameBakar.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel24.setText("Harga :");
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel25.setText("Rp. 12.000.00,-");
+        lblHargaGurameBakar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaGurameBakar.setText("Rp. 12.000.00,-");
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel26.setText("Order :");
@@ -598,13 +630,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel24))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaGurameBakar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jmlhGurameBakar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(gurameBakar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnGurameBakar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -613,11 +645,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(gurameBakar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(jLabel25))
+                    .addComponent(lblHargaGurameBakar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
@@ -631,17 +663,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/nila am (1).jpg"))); // NOI18N
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("Nila Asam Manis");
-        jLabel28.setToolTipText("");
-        jLabel28.setPreferredSize(new java.awt.Dimension(68, 20));
+        nilaAsamManis.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nilaAsamManis.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nilaAsamManis.setText("Nila Asam Manis");
+        nilaAsamManis.setToolTipText("");
+        nilaAsamManis.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel29.setText("Harga :");
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel30.setText("Rp. 7.000.00,-");
+        lblHargaNilaAsamManis.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaNilaAsamManis.setText("Rp. 7.000.00,-");
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel31.setText("Order :");
@@ -666,13 +698,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel29))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaNilaAsamManis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jmlhNilaAsamManis, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(nilaAsamManis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnNilaAsamManis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -681,11 +713,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nilaAsamManis, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(jLabel30))
+                    .addComponent(lblHargaNilaAsamManis))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
@@ -699,17 +731,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/ayam rendang (1).jpg"))); // NOI18N
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("Ayam Rendang");
-        jLabel33.setToolTipText("");
-        jLabel33.setPreferredSize(new java.awt.Dimension(68, 20));
+        ayamRendang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ayamRendang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ayamRendang.setText("Ayam Rendang");
+        ayamRendang.setToolTipText("");
+        ayamRendang.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel34.setText("Harga :");
 
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel35.setText("Rp. 8.000.00,-");
+        lblHargaAyamRendang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaAyamRendang.setText("Rp. 8.000.00,-");
 
         jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel36.setText("Order :");
@@ -734,13 +766,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel34))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaAyamRendang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jmlhRendangAyam, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ayamRendang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnRendangAyam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -749,11 +781,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ayamRendang, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
-                    .addComponent(jLabel35))
+                    .addComponent(lblHargaAyamRendang))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
@@ -767,17 +799,17 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lele goreng (1).jpg"))); // NOI18N
 
-        jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setText("Lele Goreng Sambal");
-        jLabel38.setToolTipText("");
-        jLabel38.setPreferredSize(new java.awt.Dimension(68, 20));
+        leleGorengSambal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        leleGorengSambal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        leleGorengSambal.setText("Lele Goreng Sambal");
+        leleGorengSambal.setToolTipText("");
+        leleGorengSambal.setPreferredSize(new java.awt.Dimension(68, 20));
 
         jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel39.setText("Harga :");
 
-        jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel40.setText("Rp. 7.000.00,-");
+        lblHargaLeleGorengSambal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHargaLeleGorengSambal.setText("Rp. 7.000.00,-");
 
         jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel41.setText("Order :");
@@ -802,13 +834,13 @@ public class form_pembelian extends javax.swing.JFrame {
                             .addComponent(jLabel39))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHargaLeleGorengSambal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addComponent(jmlhLeleGorengSambal, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(leleGorengSambal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnLeleGorengSambal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -817,11 +849,11 @@ public class form_pembelian extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(leleGorengSambal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
-                    .addComponent(jLabel40))
+                    .addComponent(lblHargaLeleGorengSambal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
@@ -891,15 +923,32 @@ public class form_pembelian extends javax.swing.JFrame {
 
         jPanel14.setBackground(new java.awt.Color(102, 102, 255));
 
+        tabelPesanan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tabelPesanan);
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         lbl1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -907,6 +956,11 @@ public class form_pembelian extends javax.swing.JFrame {
 
         btnBayar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBayar.setText("BAYAR");
+        btnBayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBayarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -927,12 +981,12 @@ public class form_pembelian extends javax.swing.JFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnBayar)
                 .addContainerGap())
         );
@@ -952,7 +1006,7 @@ public class form_pembelian extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1340, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -979,7 +1033,7 @@ public class form_pembelian extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(16, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -991,26 +1045,140 @@ public class form_pembelian extends javax.swing.JFrame {
 
     private void btnAyamBakarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyamBakarActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = ayamBakar.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaAyamBakar.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhAyambakar.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnAyamBakarActionPerformed
 
     private void btnRendangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendangActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = rendangDaging.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaRendangDaging.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhRendang.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnRendangActionPerformed
 
     private void btnAyamGorengActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyamGorengActionPerformed
         // TODO add your handling code here:
+        // Ambil nilai dari UI
+String nama_menu = ayamGoreng.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaAyamGoreng.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhAyamGoreng.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnAyamGorengActionPerformed
 
     private void btnNilgorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNilgorActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = nilaGoreng.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaNilaGoreng.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhNilaGoreng.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnNilgorActionPerformed
 
     private void btnNilaAsamManisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNilaAsamManisActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = nilaAsamManis.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaNilaAsamManis.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhNilaAsamManis.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnNilaAsamManisActionPerformed
 
     private void btnGurameBakarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGurameBakarActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = gurameBakar.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaGurameBakar.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhGurameBakar.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnGurameBakarActionPerformed
 
     private void btnRendangAyamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendangAyamActionPerformed
@@ -1019,39 +1187,179 @@ public class form_pembelian extends javax.swing.JFrame {
 
     private void btnLeleGorengSambalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeleGorengSambalActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = ayamRendang.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaAyamRendang.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhRendangAyam.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnLeleGorengSambalActionPerformed
 
     private void btnNasgorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNasgorActionPerformed
         // TODO add your handling code here:
-        String nama_menu = nasiGoreng.getText(); // Nama menu
-    int harga_menu = Integer.parseInt(lblHargaNasgor.getText().replace("Rp.", "12.000.00,-").trim());
-    int jumlah = (int) jmlhNasgor.getValue();
-    int total = harga_menu * jumlah;
+// Ambil nilai dari UI
+String nama_menu = nasiGoreng.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaNasgor.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
 
-    // Tambahkan ke tabel pesanan
-    menu.addRow(new Object[]{nama_menu, harga_menu, jumlah, total});
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
 
-    // Update total keseluruhan
-    totalSemua += total;
-    lblTotal.setText("Rp. " + totalSemua);
-    
-    // Simpan ke database
-    try (Connection conn = DriverManager.getConnection()) {
-        String sql = "INSERT INTO pesanan (nama_menu, harga, jumlah, total) VALUES (?, ?, ?, ?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, nama_menu);
-        ps.setInt(2, harga_menu);
-        ps.setInt(3, jumlah);
-        ps.setInt(4, total);
-        ps.executeUpdate();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+
+int jumlah = (int) jmlhNasgor.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnNasgorActionPerformed
 
     private void btnMiegorengActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiegorengActionPerformed
         // TODO add your handling code here:
+                // Ambil nilai dari UI
+String nama_menu = mieGoreng.getText(); // Nama menu
+// Remove currency symbol, dots, commas, and the "-," at the end
+String rawPrice = lblHargaMieGoreng.getText()
+                    .replace("Rp.", "")   // Remove "Rp."
+                    .replace(".", "")     // Remove dots for thousands separators
+                    .replace(",", "")     // Remove commas (if any)
+                    .replace("-","")      // Remove any hyphen
+                    .trim();              // Trim extra spaces
+
+// Now, remove the last two digits (00) by dividing by 100
+int harga_menu = Integer.parseInt(rawPrice) / 100;
+
+
+int jumlah = (int) jmlhMieGoreng.getValue();
+int total = harga_menu * jumlah;
+        
+
+     addPesanan(nama_menu, harga_menu, jumlah, total);
     }//GEN-LAST:event_btnMiegorengActionPerformed
+
+     // Method to handle adding a pesanan (called when "btnNasgor" or similar button is clicked)
+    public void addPesanan(String namaMenu, int hargaMenu, int jumlah, int total) {
+        // Add a new Pesanan to the pesananList
+        pesananList.add(new Pesanan(namaMenu, hargaMenu, jumlah, total));
+
+        // Optionally, add the data to the UI table
+        DefaultTableModel model = (DefaultTableModel) tabelPesanan.getModel();
+        model.addRow(new Object[]{namaMenu, hargaMenu, jumlah, total});
+        
+        // Update total keseluruhan
+    totalSemua += total;
+    lblTotal.setText("Rp. " + totalSemua);
+    }
+
+    
+    private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
+        // TODO add your handling code here:
+        // Validasi jika pesanan kosong
+        if (pesananList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tidak ada pesanan untuk dibayar!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Menyimpan data pesanan ke database
+        try (java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rm-padang", "root", "")) {
+            conn.setAutoCommit(false); // Mulai transaksi
+
+            // Proses setiap pesanan
+            for (Pesanan pesanan : pesananList) {
+                // Validasi stok menu
+                String cekStokSql = "SELECT stok FROM menu WHERE nama_menu = ?";
+                try (PreparedStatement cekStokPst = conn.prepareStatement(cekStokSql)) {
+                    cekStokPst.setString(1, pesanan.namaMenu);
+                    ResultSet rs = cekStokPst.executeQuery();
+                    if (rs.next()) {
+                        int stokTersedia = rs.getInt("stok");
+                        if (stokTersedia < pesanan.jumlah) {
+                            JOptionPane.showMessageDialog(this, "Stok menu " + pesanan.namaMenu + " tidak mencukupi!", "Error", JOptionPane.ERROR_MESSAGE);
+                            conn.rollback(); // Batalkan transaksi
+                            return;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Menu " + pesanan.namaMenu + " tidak ditemukan di database!", "Error", JOptionPane.ERROR_MESSAGE);
+                        conn.rollback(); // Batalkan transaksi
+                        return;
+                    }
+                }
+
+                // Kurangi stok menu
+                String kurangiStokSql = "UPDATE menu SET stok = stok - ? WHERE nama_menu = ?";
+                try (PreparedStatement kurangiStokPst = conn.prepareStatement(kurangiStokSql)) {
+                    kurangiStokPst.setInt(1, pesanan.jumlah);
+                    kurangiStokPst.setString(2, pesanan.namaMenu);
+                    kurangiStokPst.executeUpdate();
+                }
+
+                // Tambahkan pesanan ke tabel pesanan
+                String simpanPesananSql = "INSERT INTO pesanan (nama_menu, harga_menu, jumlah, total) VALUES (?, ?, ?, ?)";
+                try (PreparedStatement simpanPesananPst = conn.prepareStatement(simpanPesananSql)) {
+                    simpanPesananPst.setString(1, pesanan.namaMenu);
+                    simpanPesananPst.setInt(2, pesanan.hargaMenu);
+                    simpanPesananPst.setInt(3, pesanan.jumlah);
+                    simpanPesananPst.setInt(4, pesanan.total);
+                    simpanPesananPst.executeUpdate();
+                }
+            }
+
+            conn.commit(); // Selesaikan transaksi
+            JOptionPane.showMessageDialog(this, "Pesanan berhasil dibayar!");
+
+            // Kosongkan pesanan setelah pembayaran
+            pesananList.clear();
+            DefaultTableModel model = (DefaultTableModel) tabelPesanan.getModel();
+            model.setRowCount(0); // Kosongkan tabel UI
+            lblTotal.setText("Rp. 0"); // Reset total
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat pembayaran: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBayarActionPerformed
+private void loadDataToTable() {
+            DefaultTableModel model = (DefaultTableModel) tabelPesanan.getModel();
+            model.setRowCount(0);
+
+            String sql = "SELECT * FROM `menu`";
+
+            try (java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rm-padang", "root", "");
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+                while (rs.next()) {
+                    int idMenu = rs.getInt("id_menu");
+                    String namaMenu = rs.getString("nama_menu");
+                    String hargaMenu = rs.getString("harga_menu");
+                    String jenisMenu = rs.getString("jenis_menu");
+                    int stok = rs.getInt("stok");
+
+                    model.addRow(new Object[]{idMenu, namaMenu, hargaMenu, jenisMenu, stok});
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+            }
+        }
+    private int totalSemua = 0;
 
     /**
      * @param args the command line arguments
@@ -1089,6 +1397,9 @@ public class form_pembelian extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ayamBakar;
+    private javax.swing.JLabel ayamGoreng;
+    private javax.swing.JLabel ayamRendang;
     private javax.swing.JButton btnAyamBakar;
     private javax.swing.JButton btnAyamGoreng;
     private javax.swing.JButton btnBayar;
@@ -1102,55 +1413,38 @@ public class form_pembelian extends javax.swing.JFrame {
     private javax.swing.JButton btnRendang;
     private javax.swing.JButton btnRendangAyam;
     private javax.swing.JButton btnReset;
+    private javax.swing.JLabel gurameBakar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1166,6 +1460,7 @@ public class form_pembelian extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jmlhAyamGoreng;
     private javax.swing.JSpinner jmlhAyambakar;
     private javax.swing.JSpinner jmlhGurameBakar;
@@ -1177,8 +1472,23 @@ public class form_pembelian extends javax.swing.JFrame {
     private javax.swing.JSpinner jmlhRendang;
     private javax.swing.JSpinner jmlhRendangAyam;
     private javax.swing.JLabel lbl1;
+    private javax.swing.JLabel lblHargaAyamBakar;
+    private javax.swing.JLabel lblHargaAyamGoreng;
+    private javax.swing.JLabel lblHargaAyamRendang;
+    private javax.swing.JLabel lblHargaGurameBakar;
+    private javax.swing.JLabel lblHargaLeleGorengSambal;
+    private javax.swing.JLabel lblHargaMieGoreng;
     private javax.swing.JLabel lblHargaNasgor;
+    private javax.swing.JLabel lblHargaNilaAsamManis;
+    private javax.swing.JLabel lblHargaNilaGoreng;
+    private javax.swing.JLabel lblHargaRendangDaging;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel leleGorengSambal;
+    private javax.swing.JLabel mieGoreng;
     private javax.swing.JLabel nasiGoreng;
+    private javax.swing.JLabel nilaAsamManis;
+    private javax.swing.JLabel nilaGoreng;
+    private javax.swing.JLabel rendangDaging;
+    private javax.swing.JTable tabelPesanan;
     // End of variables declaration//GEN-END:variables
 }
